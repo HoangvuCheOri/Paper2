@@ -1,0 +1,6 @@
+{
+  "valid": false,
+  "csv": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260722_203004_square_BSMC_fusion_square_integral_recovery_r04.csv",
+  "reason": "Interrupted at approximately 0.25 lap because the experimental recovery speed cap caused a heading limit cycle; code was rolled back.",
+  "do_not_use_for_paper": true
+}

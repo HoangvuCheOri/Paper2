@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260722_202405_square_BSMC_fusion_square_ab_no_integral_r03.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.06700496498792177,
+  "straight_lateral_rmse_m": 0.0793214178728513,
+  "straight_lateral_max_abs_m": 0.1342663547497319,
+  "straight_waviness_rms_m": 0.026658398803596627,
+  "straight_lateral_peak_to_peak_max_m": 0.10674908828914216,
+  "straight_heading_rmse_deg": 5.333322236735111,
+  "straight_cmd_w_rms_rad_s": 0.06399058128007204,
+  "overall_position_rmse_m": 0.07382522537132712,
+  "overall_heading_rmse_deg": 12.520885674515915
+}

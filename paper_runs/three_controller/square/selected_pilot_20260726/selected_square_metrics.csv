@@ -1,0 +1,4 @@
+controller,run_id,run_class,laps,complete_edges,position_rmse_m,heading_rmse_deg,straight_lateral_rmse_m,straight_lateral_bias_m,straight_lateral_max_abs_m,straight_waviness_rms_m,straight_heading_rmse_deg,straight_cmd_w_rms_rad_s
+BSMC,final_square_bsmc_3laps,final,3,12,0.0304299093,22.5919350,0.0325692412,0.0307419409,0.0553146267,0.0092926262,2.2429913,0.0239769250
+Backstepping,final_square_2m_2laps_bs_r01,final,2,8,0.0321793350,22.2623131,0.0343646100,0.0327829692,0.0535081124,0.0089420788,2.1106186,0.0193111009
+SMC,square_smc_tune_p04_aggressive,tuning_pilot,1,4,0.0894889752,24.1225274,0.0893566801,0.0678788314,0.1918554993,0.0516122006,7.8960971,0.0644132758

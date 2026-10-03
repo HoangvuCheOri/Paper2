@@ -1,0 +1,4 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+circle,Backstepping,circle_bs_5laps_set01,0.02121273848481584,1.2771955750050346,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_172550_circle_Backstepping_circle_bs_5laps_set01.csv
+circle,BSMC,circle_bsmc_5laps_set01,0.022667073157666022,1.5151166234855047,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_173931_circle_BSMC_circle_bsmc_5laps_set01.csv
+circle,SMC,circle_smc_5laps_set01,0.025262714762125844,2.001478038062694,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_174522_circle_SMC_circle_smc_5laps_set01.csv

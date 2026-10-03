@@ -1,0 +1,4 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+circle,Backstepping,circle_bs_tune_baseline_p02,0.018236654989518767,1.0327876041664643,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/tuning/circle/backstepping/20260725_151531_circle_Backstepping_circle_bs_tune_baseline_p02.csv
+circle,BSMC,final_circle_bsmc_r01,0.028280266435140127,1.6746234206273425,nan,nan,nan,paper_runs/comparisons/circle_current/20260719_181813_circle_BSMC_final_circle_bsmc_r01.csv
+circle,SMC,circle_smc_tune_p02,0.024557368576328724,1.8173786871427025,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/tuning/circle/smc/20260725_152543_circle_SMC_circle_smc_tune_p02.csv

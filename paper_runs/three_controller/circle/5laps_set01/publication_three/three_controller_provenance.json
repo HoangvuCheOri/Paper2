@@ -1,0 +1,24 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; no smoothing",
+  "runs": {
+    "circle": {
+      "Backstepping": {
+        "run_id": "circle_bs_5laps_set01",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_172550_circle_Backstepping_circle_bs_5laps_set01.csv",
+        "summary": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_172550_circle_Backstepping_circle_bs_5laps_set01_summary.json"
+      },
+      "BSMC": {
+        "run_id": "circle_bsmc_5laps_set01",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_173931_circle_BSMC_circle_bsmc_5laps_set01.csv",
+        "summary": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_173931_circle_BSMC_circle_bsmc_5laps_set01_summary.json"
+      },
+      "SMC": {
+        "run_id": "circle_smc_5laps_set01",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_174522_circle_SMC_circle_smc_5laps_set01.csv",
+        "summary": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_174522_circle_SMC_circle_smc_5laps_set01_summary.json"
+      }
+    }
+  }
+}

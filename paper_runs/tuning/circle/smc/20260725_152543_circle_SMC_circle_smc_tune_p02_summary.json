@@ -1,0 +1,32 @@
+{
+  "controller": "SMC",
+  "trajectory": "circle",
+  "run_id": "circle_smc_tune_p02",
+  "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/circle/smc/20260725_152543_circle_SMC_circle_smc_tune_p02.csv",
+  "n_total": 1557,
+  "n_metric": 1354,
+  "valid": true,
+  "camera_max_age_s": 0.3,
+  "requested_laps": 1.0,
+  "parameters": {
+    "k1": 0.0,
+    "k2": 0.0,
+    "k3": 0.0,
+    "ks1": 0.04,
+    "ks2": 0.1,
+    "phi1": 0.08,
+    "phi2": 0.2,
+    "sliding_c": 2.0,
+    "radius_m": 1.0,
+    "angular_speed_rad_s": 0.108,
+    "desired_speed_m_s": 0.108,
+    "max_v_m_s": 0.18,
+    "max_w_rad_s": 0.85
+  },
+  "trajectory_figure_frame": "world",
+  "trajectory_figure_rotation_deg": 0.0,
+  "camera_rmse_ex_m": 0.022713560389341875,
+  "camera_rmse_ey_m": 0.009335873062192801,
+  "camera_rmse_heading_deg": 1.8173786871427025,
+  "camera_rmse_position_m": 0.024557368576328724
+}

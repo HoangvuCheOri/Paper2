@@ -1,0 +1,2 @@
+trajectory,controller,n,position_rmse_mean_cm,position_rmse_std_cm,heading_rmse_mean_deg,heading_rmse_std_deg
+square,BSMC,3,7.05,0.98,27.39,7.61

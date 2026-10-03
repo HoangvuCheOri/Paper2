@@ -1,0 +1,13 @@
+{
+  "input": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/square/smc/pilot_20260726/20260726_152223_square_SMC_square_smc_tune_p05_balanced.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.08296681517325849,
+  "straight_lateral_rmse_m": 0.10131999693092851,
+  "straight_lateral_max_abs_m": 0.2020991751421615,
+  "straight_waviness_rms_m": 0.05194231757126497,
+  "straight_lateral_peak_to_peak_max_m": 0.19977158595272748,
+  "straight_heading_rmse_deg": 7.705390922851212,
+  "straight_cmd_w_rms_rad_s": 0.04840395279643298,
+  "overall_position_rmse_m": 0.09710239195694735,
+  "overall_heading_rmse_deg": 23.27807878047952
+}

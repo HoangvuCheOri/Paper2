@@ -1,0 +1,24 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; controller time series truncated to the shortest active-motion duration; Circle disturbance trajectories phase-normalized between common start and BSMC intervention landmarks; no smoothing",
+  "runs": {
+    "square": {
+      "Backstepping": {
+        "run_id": "final_square_2m_2laps_bs_r01",
+        "csv": "paper_runs/three_controller/square/selected_pilot_20260726/20260719_200726_square_Backstepping_final_square_2m_2laps_bs_r01.csv",
+        "summary": "paper_runs/three_controller/square/selected_pilot_20260726/20260719_200726_square_Backstepping_final_square_2m_2laps_bs_r01_summary.json"
+      },
+      "BSMC": {
+        "run_id": "final_square_bsmc_3laps",
+        "csv": "paper_runs/three_controller/square/selected_pilot_20260726/20260719_183732_square_BSMC_final_square_bsmc_3laps.csv",
+        "summary": "paper_runs/three_controller/square/selected_pilot_20260726/20260719_183732_square_BSMC_final_square_bsmc_3laps_summary.json"
+      },
+      "SMC": {
+        "run_id": "square_smc_tune_p04_aggressive",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/square/smc/pilot_20260726/20260726_151901_square_SMC_square_smc_tune_p04_aggressive.csv",
+        "summary": "paper_runs/three_controller/square/selected_pilot_20260726/20260726_151901_square_SMC_square_smc_tune_p04_aggressive_summary.json"
+      }
+    }
+  }
+}

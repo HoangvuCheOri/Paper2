@@ -1,0 +1,3 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+circle,Backstepping,test_nhiễu_bs,0.6681961701157865,48.424379100663785,nan,2.381982090922176,nan,Test_hinh_tron/20260721_183839_circle_Backstepping_test_nhiễu_bs.csv
+circle,BSMC,test_nhiễu_bsmc,0.049022369513700495,4.087265923195215,nan,2.174201772887155,15.959481954574585,Test_hinh_tron/20260721_184335_circle_BSMC_test_nhiễu_bsmc.csv

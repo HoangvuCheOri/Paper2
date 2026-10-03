@@ -1,0 +1,242 @@
+\section{Physical Experimental Results}
+\label{sec:experimental_results}
+
+\subsection{Experimental Data Scope}
+
+The physical experiments were performed on the STM32F411--ESP-NOW--ROS\,2
+platform using overhead AprilTag localization fused with wheel odometry.
+Figure~\ref{fig:exp_setup} shows the camera view and the marked robot in the
+test area. All reported errors were recomputed from the camera pose after
+rigid alignment to the local trajectory frame; no temporal smoothing was
+applied during post-processing.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\columnwidth]
+    {\ExpDir/platform_overhead_camera.jpeg}
+  \caption{Overhead-camera view of the physical test area. The AprilTag
+  attached to the robot provides the absolute pose measurement used by the
+  EKF.}
+  \label{fig:exp_setup}
+\end{figure}
+
+The currently available data do not form a balanced final validation set.
+The circular nominal runs contain five laps per controller; the selected
+square runs contain three BSMC laps, two Backstepping laps, and one SMC
+tuning lap; and the figure-eight comparison uses the best available pilot
+run for each controller. Consequently, the results below are presented as
+an experimental pilot comparison. In particular, the SMC square run is
+tuning data and is not relabeled as validation data.
+
+\subsection{Nominal Trajectory Tracking}
+
+Figure~\ref{fig:exp_nominal_tracking} compares the measured trajectories for
+the three reference families. On the circle, all controllers remain close to
+the reference, with nominal Backstepping giving the lowest selected position
+RMSE. On the figure-eight, BSMC and SMC give similar position RMSE, whereas
+BSMC gives the lowest heading RMSE. For the sharp-corner square, BSMC and
+Backstepping are close, while the selected pure-SMC pilot exhibits larger
+outward corner transients.
+
+\begin{figure*}[!t]
+  \centering
+  \subfloat[Circle: five-lap selected runs.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/circle_nominal/circle_three_controller_trajectory.pdf}%
+    \label{fig:exp_circle_tracking}}
+  \hfil
+  \subfloat[Figure-eight: selected pilot runs.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/eight_nominal/eight_three_controller_trajectory.pdf}%
+    \label{fig:exp_eight_tracking}}
+  \hfil
+  \subfloat[Square: selected runs with unequal lap counts.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/square_nominal/square_three_controller_trajectory.pdf}%
+    \label{fig:exp_square_tracking}}
+  \caption{Measured physical trajectory tracking for Backstepping, BSMC,
+  and SMC. Each trajectory is expressed in its rigidly aligned local frame.
+  The square SMC trace is a tuning pilot rather than a final validation run.}
+  \label{fig:exp_nominal_tracking}
+\end{figure*}
+
+\begin{table}[!t]
+  \centering
+  \caption{Selected Physical Tracking Runs}
+  \label{tab:exp_tracking}
+  \scriptsize
+  \setlength{\tabcolsep}{3.2pt}
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabular}{llcc}
+    \toprule
+    \textbf{Path} & \textbf{Controller}
+      & \textbf{Position RMSE} & \textbf{Heading RMSE}\\
+      & & (cm) & (deg)\\
+    \midrule
+    \multirow{3}{*}{Circle}
+      & Backstepping & \textbf{2.12} & \textbf{1.28}\\
+      & BSMC         & 2.27 & 1.52\\
+      & SMC          & 2.53 & 2.00\\
+    \midrule
+    \multirow{3}{*}{Eight}
+      & Backstepping & 3.16 & 4.69\\
+      & BSMC         & 2.68 & \textbf{3.33}\\
+      & SMC          & \textbf{2.66} & 5.32\\
+    \midrule
+    \multirow{3}{*}{Square}
+      & Backstepping & 3.22 & \textbf{22.26}\\
+      & BSMC         & \textbf{3.04} & 22.59\\
+      & SMC$^\dagger$& 8.95 & 24.12\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{1mm}
+  \raggedright
+  \footnotesize $^\dagger$Tuning pilot; not a locked validation run.
+\end{table}
+
+The large overall square heading RMSE values arise primarily from the
+instantaneous $90^\circ$ reference-heading changes at the vertices. To
+separate corner transients from established straight-edge behavior,
+Table~\ref{tab:exp_square_straights} reports metrics only on the detected
+straight portions. BSMC gives the lowest straight lateral RMSE, while
+Backstepping gives the lowest straight heading RMSE. The SMC pilot requires
+substantially more angular correction and does not return to the new edge as
+quickly after each corner.
+
+\begin{table}[!t]
+  \centering
+  \caption{Straight-Edge Metrics for the Selected Square Runs}
+  \label{tab:exp_square_straights}
+  \scriptsize
+  \setlength{\tabcolsep}{2.4pt}
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Controller}
+      & \shortstack{\textbf{Lateral}\\\textbf{RMSE}}
+      & \shortstack{\textbf{Lateral}\\\textbf{bias}}
+      & \shortstack{\textbf{Maximum}\\$|e_y|$}
+      & \shortstack{\textbf{Heading}\\\textbf{RMSE}}\\
+      & (cm) & (cm) & (cm) & (deg)\\
+    \midrule
+    Backstepping & 3.44 & 3.28 & \textbf{5.35} & \textbf{2.11}\\
+    BSMC         & \textbf{3.26} & \textbf{3.07} & 5.53 & 2.24\\
+    SMC$^\dagger$& 8.94 & 6.79 & 19.19 & 7.90\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{figure*}[!t]
+  \centering
+  \subfloat[Circle error histories.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/circle_nominal/circle_three_controller_errors.pdf}}
+  \hfil
+  \subfloat[Figure-eight error histories.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/eight_nominal/eight_three_controller_errors.pdf}}
+  \hfil
+  \subfloat[Square: common first-lap time window.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/square_nominal/square_three_controller_errors.pdf}}
+  \caption{Measured position and heading error histories for the selected
+  nominal physical runs. The periodic square heading peaks coincide with the
+  commanded $90^\circ$ corner transitions.}
+  \label{fig:exp_nominal_errors}
+\end{figure*}
+
+\subsection{Manual Disturbance and Relocalization Pilots}
+
+The manual disturbance protocol was applied only to the circular trajectory.
+The robot was paused, physically displaced, and then released while the
+controller continued from the same reference phase. Two displacement
+orientations were recorded: nominal yaw ($0^\circ$) and an approximately
+$90^\circ$ yaw change. These trials were designed as relocalization and safety
+pilots, not as balanced repeat statistics.
+
+\begin{figure*}[!t]
+  \centering
+  \subfloat[Yaw-$0^\circ$ trajectories aligned to a common intervention
+  phase.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/disturbance_yaw0/circle_three_controller_disturbance_trajectory.pdf}}
+  \hfil
+  \subfloat[Yaw-$0^\circ$ recovery histories.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/disturbance_yaw0/circle_three_controller_disturbance_recovery.pdf}}
+  \hfil
+  \subfloat[Yaw-$90^\circ$ recovery histories.]{%
+    \includegraphics[width=0.31\textwidth]
+      {\ExpDir/disturbance_yaw90/circle_three_controller_disturbance_recovery.pdf}}
+  \caption{Physical manual-disturbance pilots on the circular path. For panel
+  (a), each measured trajectory is phase-normalized by a smoothly varying
+  rotation and translation between the common run-start and BSMC intervention
+  landmarks; the transform is fixed after intervention and no measurement
+  smoothing is applied. A missing recovery value denotes failure to satisfy
+  the fixed recovery criterion within the recorded interval. The selected
+  yaw-$90^\circ$ SMC trial was safety-censored.}
+  \label{fig:exp_disturbance}
+\end{figure*}
+
+\begin{table}[!t]
+  \centering
+  \caption{Selected Circle Disturbance Pilots}
+  \label{tab:exp_disturbance}
+  \scriptsize
+  \setlength{\tabcolsep}{2.4pt}
+  \renewcommand{\arraystretch}{1.08}
+  \begin{tabular}{llccc}
+    \toprule
+    \textbf{Yaw} & \textbf{Controller}
+      & \textbf{Peak increment} & $\mathbf{IAE_{10}}$
+      & $\mathbf{T_{\mathrm{rec}}}$\\
+      & & (cm) & (m\,s) & (s)\\
+    \midrule
+    \multirow{3}{*}{$0^\circ$}
+      & Backstepping & 30.17 & 1.339 & 6.88\\
+      & BSMC         & 28.37 & \textbf{1.279} & 7.24\\
+      & SMC          & \textbf{19.24} & 1.366 & NR\\
+    \midrule
+    \multirow{3}{*}{$90^\circ$}
+      & Backstepping & \textbf{52.66} & \textbf{3.451} & NR\\
+      & BSMC         & 54.19 & 3.778 & NR\\
+      & SMC$^\ddagger$ & 74.40 & 3.516 & NR\\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{1mm}
+  \raggedright
+  \footnotesize NR: recovery criterion not reached. 
+  $^\ddagger$Safety-censored run.
+\end{table}
+
+The yaw-$0^\circ$ pilot shows successful recovery for Backstepping and BSMC,
+whereas the selected SMC run does not meet the recovery criterion. None of
+the selected yaw-$90^\circ$ trials meets the same criterion. The result
+demonstrates that large pose relocalization is a substantially harder
+closed-loop condition than nominal tracking. It does not establish a
+statistical ordering because only selected pilot runs are available and the
+applied manual displacements are not identical.
+
+\subsection{Implementation Observations and Validity}
+
+The experiments revealed two implementation effects that are not visible in
+the ideal kinematic simulation. First, absolute camera measurements must be
+allowed to re-enter the EKF after a sustained large innovation; otherwise the
+filter can continue from an encoder-only phantom pose after the robot is
+physically displaced. Second, square-corner performance depends strongly on
+the inner wheel-speed loop. For the same nominal corner command, a stalled
+inner wheel increases the effective turning radius and leaves less straight
+distance for lateral-error recovery. These effects motivate reporting
+camera-derived errors and actuator telemetry in addition to controller
+commands.
+
+The nominal circle data are the most balanced set presently available. The
+figure-eight and square comparisons remain selected pilots, and the
+disturbance data are manual safety trials. Final publication claims requiring
+mean and standard deviation must therefore be based on a future locked-gain,
+equal-repeat validation campaign rather than on the selected-run values in
+this section.
+
+\FloatBarrier

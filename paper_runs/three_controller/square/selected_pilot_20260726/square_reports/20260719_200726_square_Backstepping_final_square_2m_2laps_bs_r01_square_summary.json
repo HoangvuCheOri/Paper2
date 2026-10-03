@@ -1,0 +1,13 @@
+{
+  "input": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/square/selected_pilot_20260726/20260719_200726_square_Backstepping_final_square_2m_2laps_bs_r01.csv",
+  "n_complete_edges": 8,
+  "straight_lateral_bias_m": 0.03278296919924637,
+  "straight_lateral_rmse_m": 0.034364609954383396,
+  "straight_lateral_max_abs_m": 0.053508112354584886,
+  "straight_waviness_rms_m": 0.008942078830890694,
+  "straight_lateral_peak_to_peak_max_m": 0.04346743919411187,
+  "straight_heading_rmse_deg": 2.1106185688761805,
+  "straight_cmd_w_rms_rad_s": 0.019311100911868894,
+  "overall_position_rmse_m": 0.03612507892647433,
+  "overall_heading_rmse_deg": 22.98756547854114
+}

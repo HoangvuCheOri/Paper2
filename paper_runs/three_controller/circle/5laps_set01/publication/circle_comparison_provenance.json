@@ -1,0 +1,11 @@
+{
+  "trajectory": "circle",
+  "selection": "latest completed run for each controller",
+  "backstepping_run_id": "circle_bs_5laps_set01",
+  "bsmc_run_id": "circle_bsmc_5laps_set01",
+  "backstepping_csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_172550_circle_Backstepping_circle_bs_5laps_set01.csv",
+  "bsmc_csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle/5laps_set01/20260725_173931_circle_BSMC_circle_bsmc_5laps_set01.csv",
+  "camera_freshness_limit_s": 0.3,
+  "figure_frame": "trajectory-aligned for figure-eight; local start frame otherwise",
+  "edits": "declared rigid coordinate translation/rotation only; no smoothing"
+}

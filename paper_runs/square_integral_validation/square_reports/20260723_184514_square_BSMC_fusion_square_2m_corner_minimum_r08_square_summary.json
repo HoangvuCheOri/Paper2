@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260723_184514_square_BSMC_fusion_square_2m_corner_minimum_r08.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.04358633317670516,
+  "straight_lateral_rmse_m": 0.05600553465314273,
+  "straight_lateral_max_abs_m": 0.12181625817149876,
+  "straight_waviness_rms_m": 0.03463273950915224,
+  "straight_lateral_peak_to_peak_max_m": 0.1389954321795627,
+  "straight_heading_rmse_deg": 5.619366039719196,
+  "straight_cmd_w_rms_rad_s": 0.03897060496986041,
+  "overall_position_rmse_m": 0.054090510477348794,
+  "overall_heading_rmse_deg": 10.934634324975814
+}

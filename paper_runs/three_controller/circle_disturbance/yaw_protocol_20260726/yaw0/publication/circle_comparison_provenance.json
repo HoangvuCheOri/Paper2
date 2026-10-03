@@ -1,0 +1,11 @@
+{
+  "trajectory": "circle",
+  "selection": "latest completed run for each controller",
+  "backstepping_run_id": "circle_bs_yaw0_p01_full_lap_manual",
+  "bsmc_run_id": "circle_bsmc_yaw0_p03_full_lap_manual",
+  "backstepping_csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw0/20260726_142110_circle_Backstepping_circle_bs_yaw0_p01_full_lap_manual.csv",
+  "bsmc_csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw0/20260726_141027_circle_BSMC_circle_bsmc_yaw0_p03_full_lap_manual.csv",
+  "camera_freshness_limit_s": 0.3,
+  "figure_frame": "trajectory-aligned for figure-eight; local start frame otherwise",
+  "edits": "declared rigid coordinate translation/rotation only; no smoothing"
+}

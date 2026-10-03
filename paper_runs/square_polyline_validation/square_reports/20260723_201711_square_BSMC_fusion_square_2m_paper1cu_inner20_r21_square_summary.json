@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_polyline_validation/20260723_201711_square_BSMC_fusion_square_2m_paper1cu_inner20_r21.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.04544901582293402,
+  "straight_lateral_rmse_m": 0.05446807468040785,
+  "straight_lateral_max_abs_m": 0.12871767104053383,
+  "straight_waviness_rms_m": 0.02888053602921009,
+  "straight_lateral_peak_to_peak_max_m": 0.13565964668527009,
+  "straight_heading_rmse_deg": 5.327762632843177,
+  "straight_cmd_w_rms_rad_s": 0.04261489963538664,
+  "overall_position_rmse_m": 0.052325236277558154,
+  "overall_heading_rmse_deg": 34.990231435759476
+}

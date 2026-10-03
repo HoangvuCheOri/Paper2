@@ -1,0 +1,2 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+eight,BSMC,eight_bsmc_ff1_center_s2_k2r080_3laps_r08,0.02750465912436832,3.5575504190899325,nan,nan,nan,Final_hinh_so_8/20260722_191117_eight_BSMC_eight_bsmc_ff1_center_s2_k2r080_3laps_r08.csv

@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260723_190222_square_BSMC_fusion_rolling_corners_adaptive_straight_r10.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.06211898626872497,
+  "straight_lateral_rmse_m": 0.07682786303960834,
+  "straight_lateral_max_abs_m": 0.1743151983283421,
+  "straight_waviness_rms_m": 0.043386992973198354,
+  "straight_lateral_peak_to_peak_max_m": 0.1758427182427679,
+  "straight_heading_rmse_deg": 6.654930826348394,
+  "straight_cmd_w_rms_rad_s": 0.028022438183203092,
+  "overall_position_rmse_m": 0.07603955631059503,
+  "overall_heading_rmse_deg": 33.58222478854654
+}

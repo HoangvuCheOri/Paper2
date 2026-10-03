@@ -1,0 +1,2 @@
+# Dependencies without reliable Ubuntu/rosdep packages on ROS 2 Humble.
+pupil-apriltags==1.0.4.post11

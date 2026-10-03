@@ -1,0 +1,19 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; no smoothing",
+  "runs": {
+    "circle": {
+      "Backstepping": {
+        "run_id": "final_circle_bs_r04",
+        "csv": "Paper1-main/paper_runs/final/20260719_193456_circle_Backstepping_final_circle_bs_r04.csv",
+        "summary": "Paper1-main/paper_runs/final/20260719_193456_circle_Backstepping_final_circle_bs_r04_summary.json"
+      },
+      "BSMC": {
+        "run_id": "final_circle_bsmc_r05",
+        "csv": "Paper1-main/paper_runs/final/20260719_193802_circle_BSMC_final_circle_bsmc_r05.csv",
+        "summary": "Paper1-main/paper_runs/final/20260719_193802_circle_BSMC_final_circle_bsmc_r05_summary.json"
+      }
+    }
+  }
+}

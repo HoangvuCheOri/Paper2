@@ -1,0 +1,13 @@
+{
+  "input": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/square/bsmc/legacy_183732_recheck_20260726/20260726_153845_square_BSMC_square_bsmc_legacy_183732_recheck_r01.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.06707895065338325,
+  "straight_lateral_rmse_m": 0.07671389977837338,
+  "straight_lateral_max_abs_m": 0.12954732303332572,
+  "straight_waviness_rms_m": 0.027256688483013373,
+  "straight_lateral_peak_to_peak_max_m": 0.11262278516522836,
+  "straight_heading_rmse_deg": 4.215817427111685,
+  "straight_cmd_w_rms_rad_s": 0.030330703885763293,
+  "overall_position_rmse_m": 0.07844720153741146,
+  "overall_heading_rmse_deg": 23.982669197802323
+}

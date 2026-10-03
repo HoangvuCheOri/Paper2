@@ -1,0 +1,32 @@
+{
+  "controller": "BSMC",
+  "trajectory": "circle",
+  "run_id": "circle_dist_bsmc_30cm_yawfree_p01",
+  "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/pilot_30cm_yawfree_20260725/20260725_185732_circle_BSMC_circle_dist_bsmc_30cm_yawfree_p01.csv",
+  "n_total": 1555,
+  "n_metric": 633,
+  "valid": true,
+  "camera_max_age_s": 0.3,
+  "requested_laps": 1.0,
+  "parameters": {
+    "k1": 1.163,
+    "k2": 4.499,
+    "k3": 3.3,
+    "ks1": 0.024,
+    "ks2": 0.05,
+    "phi1": 1.0,
+    "phi2": 1.5,
+    "sliding_c": 1.0,
+    "radius_m": 1.0,
+    "angular_speed_rad_s": 0.108,
+    "desired_speed_m_s": 0.108,
+    "max_v_m_s": 0.18,
+    "max_w_rad_s": 0.85
+  },
+  "trajectory_figure_frame": "world",
+  "trajectory_figure_rotation_deg": 0.0,
+  "camera_rmse_ex_m": 0.01586162028371745,
+  "camera_rmse_ey_m": 0.011955576236731675,
+  "camera_rmse_heading_deg": 1.6189064721582995,
+  "camera_rmse_position_m": 0.019862698738518387
+}

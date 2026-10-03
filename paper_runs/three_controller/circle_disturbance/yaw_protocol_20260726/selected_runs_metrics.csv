@@ -1,0 +1,7 @@
+condition,controller,run_id,run_status,pre_event_position_error_m,peak_position_error_m,peak_incremental_position_error_m,peak_heading_error_deg,iae_10_m_s,recovery_time_s,recovered_within_10_s,position_rmse_m
+yaw0,Backstepping,circle_bs_yaw0_p01_full_lap_manual,full_run,0.0123775,0.3140737,0.3016962,30.81,1.3390303,6.8801615,true,0.0761584
+yaw0,BSMC,circle_bsmc_yaw0_p03_full_lap_manual,full_run,0.0120930,0.2957523,0.2836593,28.49,1.2789255,7.2395997,true,0.0632855
+yaw0,SMC,circle_smc_yaw0_p01_full_lap_manual,full_run,0.0948383,0.2871987,0.1923604,10.89,1.3658681,NaN,false,0.2036464
+yaw90,Backstepping,circle_bs_yaw90_p01_full_lap_manual,full_run,0.0127820,0.5394013,0.5266193,93.41,3.4507578,NaN,false,0.1263156
+yaw90,BSMC,circle_bsmc_yaw90_p01_full_lap_manual,full_run,0.0111812,0.5530943,0.5419131,95.47,3.7782396,NaN,false,0.1195307
+yaw90,SMC,circle_smc_yaw90_p06_safety_censored,safety_censored,0.0523792,0.7964079,0.7440288,96.66,3.5162367,NaN,false,0.6661571

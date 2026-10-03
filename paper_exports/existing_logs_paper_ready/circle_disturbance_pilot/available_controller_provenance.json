@@ -1,0 +1,19 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; no smoothing",
+  "runs": {
+    "circle": {
+      "Backstepping": {
+        "run_id": "test_nhi\u1ec5u_bs",
+        "csv": "Test_hinh_tron/20260721_183839_circle_Backstepping_test_nhi\u1ec5u_bs.csv",
+        "summary": "Test_hinh_tron/20260721_183839_circle_Backstepping_test_nhi\u1ec5u_bs_summary.json"
+      },
+      "BSMC": {
+        "run_id": "test_nhi\u1ec5u_bsmc",
+        "csv": "Test_hinh_tron/20260721_184335_circle_BSMC_test_nhi\u1ec5u_bsmc.csv",
+        "summary": "Test_hinh_tron/20260721_184335_circle_BSMC_test_nhi\u1ec5u_bsmc_summary.json"
+      }
+    }
+  }
+}

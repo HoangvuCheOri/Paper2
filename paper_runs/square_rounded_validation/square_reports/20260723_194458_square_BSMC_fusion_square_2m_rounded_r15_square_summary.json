@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_rounded_validation/20260723_194458_square_BSMC_fusion_square_2m_rounded_r15.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.007709338391877307,
+  "straight_lateral_rmse_m": 0.016633335676758575,
+  "straight_lateral_max_abs_m": 0.03680279234823946,
+  "straight_waviness_rms_m": 0.007143515242092667,
+  "straight_lateral_peak_to_peak_max_m": 0.03125783146852833,
+  "straight_heading_rmse_deg": 2.124187094792052,
+  "straight_cmd_w_rms_rad_s": 0.01895123608624691,
+  "overall_position_rmse_m": 0.02226034124559026,
+  "overall_heading_rmse_deg": 10.4572769896879
+}

@@ -1,0 +1,3 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+square,Backstepping,final_square_2m_2laps_bs_r01,0.03217933496344043,22.262313050194035,nan,nan,nan,Paper1-main/paper_runs/final/square/20260719_200726_square_Backstepping_final_square_2m_2laps_bs_r01.csv
+square,BSMC,final_square_2m_2laps_bsmc_r01,0.030330358153524088,22.138016599246193,nan,nan,nan,Paper1-main/paper_runs/final/square/20260719_201052_square_BSMC_final_square_2m_2laps_bsmc_r01.csv

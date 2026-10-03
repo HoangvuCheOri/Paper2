@@ -1,0 +1,192 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{url}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{dblfloatfix}
+\usepackage{placeins}
+
+\renewcommand{\topfraction}{0.92}
+\renewcommand{\bottomfraction}{0.85}
+\renewcommand{\textfraction}{0.06}
+\renewcommand{\floatpagefraction}{0.82}
+\renewcommand{\dbltopfraction}{0.92}
+\renewcommand{\dblfloatpagefraction}{0.82}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{6}
+\setcounter{dbltopnumber}{3}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\intextsep}{7pt plus 2pt minus 2pt}
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{6pt plus 2pt minus 2pt}
+
+\newcommand{\FigDir}{results/figures}
+\newcommand{\ExpDir}{figures/experimental}
+
+\setlength{\parindent}{0.25in}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\begin{document}
+
+\title{Experimental Trajectory Tracking of a Differential-Drive
+       Wheeled Mobile Robot Using Backstepping Control with
+       Sliding-Mode-Inspired Compensation via ESP-NOW}
+
+\newcommand{\AuthorCell}[1]{%
+  \begin{minipage}[t]{0.30\textwidth}
+    \centering\small #1
+  \end{minipage}%
+}
+
+\author{%
+\makebox[\textwidth][c]{%
+\begin{tabular}{@{}c@{\hspace{0.035\textwidth}}c@{\hspace{0.035\textwidth}}c@{}}
+\AuthorCell{
+Trong Tai, Nguyen\textsuperscript{1,2,*}\\
+\textit{Faculty of Electrical \& Electronics Engineering}\\
+\textit{Ho Chi Minh City University of Technology}\\
+\textit{Vietnam National University Ho Chi Minh City}\\
+nttai@hcmut.edu.vn}
+&
+\AuthorCell{
+Hoang Huy, Vu\textsuperscript{1,2}\\
+\textit{Faculty of Electrical \& Electronics Engineering}\\
+\textit{Ho Chi Minh City University of Technology}\\
+\textit{Vietnam National University Ho Chi Minh City}\\
+hoang.vucheori@hcmut.edu.vn}
+&
+\AuthorCell{
+Huynh Thang, Luu\textsuperscript{1,2}\\
+\textit{Faculty of Electrical \& Electronics Engineering}\\
+\textit{Ho Chi Minh City University of Technology}\\
+\textit{Vietnam National University Ho Chi Minh City}\\
+thang.luublank@hcmut.edu.vn}
+\end{tabular}}%
+}
+
+\maketitle
+
+\begin{abstract}
+This paper presents the implementation and experimental evaluation of a
+velocity-level Backstepping trajectory-tracking controller augmented with
+bounded sliding-mode-inspired nonlinear compensation for a
+differential-drive wheeled mobile robot. The low-cost platform combines an
+STM32F411 wheel-speed controller, ESP32/ESP-NOW communication, ROS\,2
+high-level control, and an overhead AprilTag camera fused with wheel odometry
+through an Extended Kalman Filter. Backstepping, conventional SMC, and the
+compensated controller are evaluated on circular, figure-eight, and square
+references. The currently selected physical runs show comparable
+Backstepping and BSMC performance on the circle and square, while the
+selected pure-SMC square pilot exhibits larger corner transients. Manual
+circle-displacement pilots further expose the importance of global
+relocalization and inner wheel-speed behavior. Because the figure-eight,
+square-SMC, and disturbance datasets are selected pilots rather than
+balanced locked-gain repeats, they are reported as preliminary physical
+evidence and not as final statistical validation.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Backstepping control, sliding-mode-inspired compensation, wheeled mobile
+robot, ESP-NOW, AprilTag localization, Extended Kalman Filter.
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+Trajectory tracking of differential-drive robots is affected not only by the
+nonholonomic kinematics but also by actuator deadzones, wheel asymmetry,
+wireless timing variation, encoder quantization, and localization drift.
+Backstepping provides a constructive nominal tracking law, whereas bounded
+nonlinear compensation can increase robustness without discontinuous
+switching. This work evaluates that combination on a low-cost physical
+platform and compares it with independently configured Backstepping and SMC
+baselines.
+
+\section{Controller and Platform Summary}
+
+For pose $q=[x,y,\theta]^\top$, the kinematic model is
+\begin{equation}
+  \dot{x}=v\cos\theta,\qquad
+  \dot{y}=v\sin\theta,\qquad
+  \dot{\theta}=\omega .
+\end{equation}
+Using body-frame errors $e_x$, $e_y$, and $e_\theta$, the compensated
+commands are
+\begin{align}
+  v_{\rm cmd} &=
+    v_d\cos e_\theta+k_1e_x+
+    K_{s1}\operatorname{sat}(e_x/\varphi_1),\\
+  \omega_{\rm cmd} &=
+    \omega_d+v_d(k_2e_y+k_3\sin e_\theta)+
+    K_{s2}\operatorname{sat}((e_\theta+ce_y)/\varphi_2).
+\end{align}
+The controller runs on a ROS\,2 host. Velocity commands and wheel telemetry
+are exchanged through an ESP-NOW bridge, while the STM32 closes the two
+wheel-speed loops. An overhead camera observes a 0.15-m AprilTag and supplies
+absolute pose corrections to a custom EKF.
+
+\section{Experimental Method}
+
+The physical tests use circle, figure-eight, and 2-m square references.
+Camera-derived tracking errors are computed after rigid local-frame
+alignment, without temporal smoothing. Nominal experiments compare
+Backstepping, BSMC, and SMC. Manual disturbance pilots are restricted to the
+circle and use two displacement orientations. A run is considered recovered
+only when its position error returns below the fixed threshold and remains
+there for the prescribed hold interval.
+
+\input{sections/experimental_results}
+
+\section{Conclusion and Future Work}
+
+The selected physical runs confirm closed-loop operation of the complete
+STM32F411--ESP-NOW--ROS\,2--AprilTag system. BSMC and Backstepping provide
+similar performance on the selected circle and square runs; BSMC gives the
+lowest selected square position RMSE, while Backstepping gives the lowest
+circle RMSE and straight-square heading RMSE. The selected pure-SMC square
+pilot is limited by large post-corner transients. Manual displacement tests
+show that robust global relocalization and reliable inner wheel-speed
+tracking are prerequisites for meaningful controller comparison.
+
+The principal limitation is the unbalanced nature of the current pilot data.
+Future work will freeze controller parameters, restore and verify the inner
+wheel-speed loop, and collect equal-repeat validation runs under identical
+firmware, localization, initial-pose, battery, and floor conditions. Only
+that locked dataset should be used for mean--standard-deviation claims.
+
+\begin{thebibliography}{9}
+
+\bibitem{kanayama1990}
+Y.~Kanayama, Y.~Kimura, F.~Miyazaki, and T.~Noguchi,
+``A stable tracking control method for an autonomous mobile robot,''
+in \textit{Proc. IEEE ICRA}, 1990, pp.~384--389.
+
+\bibitem{utkin2009}
+V.~Utkin, J.~Guldner, and J.~Shi,
+\textit{Sliding Mode Control in Electromechanical Systems}, 2nd~ed.,
+CRC Press, 2009.
+
+\bibitem{olson2011}
+E.~Olson, ``AprilTag: A robust and flexible visual fiducial system,''
+in \textit{Proc. IEEE ICRA}, 2011, pp.~3400--3407.
+
+\bibitem{macenski2022}
+S.~Macenski, T.~Foote, B.~Gerkey, C.~Lalancette, and W.~Woodall,
+``Robot Operating System 2: Design, architecture, and uses in the wild,''
+\textit{Science Robotics}, vol.~7, no.~66, 2022.
+
+\end{thebibliography}
+
+\end{document}

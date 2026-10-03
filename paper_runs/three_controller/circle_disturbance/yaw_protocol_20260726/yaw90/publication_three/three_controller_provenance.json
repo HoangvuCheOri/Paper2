@@ -1,0 +1,24 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; Circle disturbance trajectories phase-normalized between common start and BSMC intervention landmarks; no smoothing",
+  "runs": {
+    "circle": {
+      "Backstepping": {
+        "run_id": "circle_bs_yaw90_p01_full_lap_manual",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_142636_circle_Backstepping_circle_bs_yaw90_p01_full_lap_manual.csv",
+        "summary": "paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_142636_circle_Backstepping_circle_bs_yaw90_p01_full_lap_manual_summary.json"
+      },
+      "BSMC": {
+        "run_id": "circle_bsmc_yaw90_p01_full_lap_manual",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_141526_circle_BSMC_circle_bsmc_yaw90_p01_full_lap_manual.csv",
+        "summary": "paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_141526_circle_BSMC_circle_bsmc_yaw90_p01_full_lap_manual_summary.json"
+      },
+      "SMC": {
+        "run_id": "circle_smc_yaw90_p06_safety_censored",
+        "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_145514_circle_SMC_circle_smc_yaw90_p06_safety_censored.csv",
+        "summary": "paper_runs/three_controller/circle_disturbance/yaw_protocol_20260726/yaw90/20260726_145514_circle_SMC_circle_smc_yaw90_p06_safety_censored_summary.json"
+      }
+    }
+  }
+}

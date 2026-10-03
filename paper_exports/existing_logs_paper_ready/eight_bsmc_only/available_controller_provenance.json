@@ -1,0 +1,14 @@
+{
+  "selection": "latest valid run per controller and trajectory",
+  "camera_freshness_limit_s": 0.3,
+  "processing": "camera-derived errors; rigid local-frame alignment; no smoothing",
+  "runs": {
+    "eight": {
+      "BSMC": {
+        "run_id": "eight_bsmc_ff1_center_s2_k2r080_3laps_r08",
+        "csv": "Final_hinh_so_8/20260722_191117_eight_BSMC_eight_bsmc_ff1_center_s2_k2r080_3laps_r08.csv",
+        "summary": "Final_hinh_so_8/20260722_191117_eight_BSMC_eight_bsmc_ff1_center_s2_k2r080_3laps_r08_summary.json"
+      }
+    }
+  }
+}

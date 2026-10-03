@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260723_184012_square_BSMC_fusion_square_2m_fast_convergence_r07.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.03976051941233137,
+  "straight_lateral_rmse_m": 0.05337391837463177,
+  "straight_lateral_max_abs_m": 0.12340705909903436,
+  "straight_waviness_rms_m": 0.03385665865345261,
+  "straight_lateral_peak_to_peak_max_m": 0.14216508934725341,
+  "straight_heading_rmse_deg": 5.5460791267631055,
+  "straight_cmd_w_rms_rad_s": 0.04792267651657609,
+  "overall_position_rmse_m": 0.05220432591184022,
+  "overall_heading_rmse_deg": 11.406854356025939
+}

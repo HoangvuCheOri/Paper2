@@ -1,0 +1,13 @@
+{
+  "input": "/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/square/selected_pilot_20260726/20260719_183732_square_BSMC_final_square_bsmc_3laps.csv",
+  "n_complete_edges": 12,
+  "straight_lateral_bias_m": 0.03074194093515706,
+  "straight_lateral_rmse_m": 0.032569241154857334,
+  "straight_lateral_max_abs_m": 0.05531462674425754,
+  "straight_waviness_rms_m": 0.009292626240156528,
+  "straight_lateral_peak_to_peak_max_m": 0.04686382566419983,
+  "straight_heading_rmse_deg": 2.2429913177814567,
+  "straight_cmd_w_rms_rad_s": 0.023976924966994204,
+  "overall_position_rmse_m": 0.030240330216650787,
+  "overall_heading_rmse_deg": 22.375094706024303
+}

@@ -1,0 +1,60 @@
+{
+  "temporal_recovery_alignment": {
+    "Backstepping": {
+      "event_time_s": 77.40364646911621,
+      "pre_event_position_error_m": 0.012782001894397464,
+      "baseline_end_time_s": 28.403623342514038
+    },
+    "BSMC": {
+      "event_time_s": 171.3232765197754,
+      "pre_event_position_error_m": 0.011181205806065676,
+      "baseline_end_time_s": 24.7629177570343
+    },
+    "SMC": {
+      "event_time_s": 78.72320294380188,
+      "pre_event_position_error_m": 0.05237916233853483,
+      "baseline_end_time_s": 17.603542804718018
+    }
+  },
+  "spatial_phase_alignment": {
+    "reference_controller": "BSMC",
+    "method": "time-varying XY rotation/translation from common run start to common intervention phase; fixed after intervention",
+    "anchor": "start of the control pause preceding release/resume",
+    "common_start_x_m": 3.184241842987304e-05,
+    "common_start_y_m": 3.242604597420338e-06,
+    "common_anchor_x_m": 0.7780032843970754,
+    "common_anchor_y_m": 1.6336888218061214,
+    "controllers": {
+      "Backstepping": {
+        "event_time_s": 77.40364646911621,
+        "anchor_time_s": 28.403623342514038,
+        "start_time_s": 3.1236648559570312,
+        "phase_rotation_deg": -22.578949406655962,
+        "start_translation_x_m": -9.711293379170237e-06,
+        "start_translation_y_m": -2.1901133254329594e-05,
+        "event_translation_x_m": -0.0015494029561038403,
+        "event_translation_y_m": 0.0004212897505195823
+      },
+      "BSMC": {
+        "event_time_s": 171.3232765197754,
+        "anchor_time_s": 24.7629177570343,
+        "start_time_s": 3.123065710067749,
+        "phase_rotation_deg": 0.0,
+        "start_translation_x_m": 0.0,
+        "start_translation_y_m": 0.0,
+        "event_translation_x_m": 0.0,
+        "event_translation_y_m": 0.0
+      },
+      "SMC": {
+        "event_time_s": 78.72320294380188,
+        "anchor_time_s": 17.603542804718018,
+        "start_time_s": 3.122735023498535,
+        "phase_rotation_deg": 48.25726056637011,
+        "start_translation_x_m": 4.317206662712801e-05,
+        "start_translation_y_m": -7.301998362852967e-06,
+        "event_translation_x_m": -0.09165493922248491,
+        "event_translation_y_m": 0.19113667733128725
+      }
+    }
+  }
+}

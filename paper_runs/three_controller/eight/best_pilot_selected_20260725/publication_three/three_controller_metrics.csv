@@ -1,0 +1,4 @@
+trajectory,controller,run_id,position_rmse_m,heading_rmse_deg,disturbance_peak_incremental_m,disturbance_iae10_m_s,disturbance_recovery_s,csv
+eight,Backstepping,eight_bs_tune_p01,0.031612086330176065,4.694345399470948,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/eight/best_pilot_selected_20260725/Backstepping_best_p01.csv
+eight,BSMC,20260722_190056,0.026805269623778303,3.330834290081836,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/eight/best_pilot_selected_20260725/BSMC_best_r07.csv
+eight,SMC,eight_smc_tune_p03_repeat,0.026551551933538076,5.319597364560508,nan,nan,nan,/home/hoang/Paper1/Paper1-main/paper_runs/three_controller/eight/best_pilot_selected_20260725/SMC_best_p03_repeat.csv

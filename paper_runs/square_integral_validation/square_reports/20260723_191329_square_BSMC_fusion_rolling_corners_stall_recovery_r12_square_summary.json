@@ -1,0 +1,13 @@
+{
+  "input": "/home/thang/Paper1/Paper1-main/paper_runs/square_integral_validation/20260723_191329_square_BSMC_fusion_rolling_corners_stall_recovery_r12.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.08279229499975498,
+  "straight_lateral_rmse_m": 0.11135945142166649,
+  "straight_lateral_max_abs_m": 0.2545470172637322,
+  "straight_waviness_rms_m": 0.05890642956328359,
+  "straight_lateral_peak_to_peak_max_m": 0.23125170292609964,
+  "straight_heading_rmse_deg": 8.469396859241446,
+  "straight_cmd_w_rms_rad_s": 0.11903845413800423,
+  "overall_position_rmse_m": 0.10208830725047187,
+  "overall_heading_rmse_deg": 32.947701583175366
+}

@@ -1,0 +1,16 @@
+[Unit]
+Description=AMR ROS 2 IPC core
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/AMR
+EnvironmentFile=-%h/.config/amr/ipc.env
+ExecStart=/bin/bash -lc 'source /opt/ros/humble/setup.bash && source %h/AMR/install/setup.bash && exec ros2 launch amr_control ipc_core.launch.py camera_display:=false'
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+
+[Install]
+WantedBy=default.target

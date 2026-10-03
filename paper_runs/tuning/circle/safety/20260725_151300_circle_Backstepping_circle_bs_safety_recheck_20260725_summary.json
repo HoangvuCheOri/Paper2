@@ -1,0 +1,27 @@
+{
+  "controller": "Backstepping",
+  "trajectory": "circle",
+  "run_id": "circle_bs_safety_recheck_20260725",
+  "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/circle/safety/20260725_151300_circle_Backstepping_circle_bs_safety_recheck_20260725.csv",
+  "n_total": 202,
+  "n_metric": 0,
+  "valid": false,
+  "camera_max_age_s": 0.3,
+  "requested_laps": 1.0,
+  "parameters": {
+    "k1": 1.163,
+    "k2": 4.499,
+    "k3": 3.3,
+    "ks1": 0.0,
+    "ks2": 0.0,
+    "phi1": 1.0,
+    "phi2": 1.5,
+    "radius_m": 1.0,
+    "angular_speed_rad_s": 0.048,
+    "desired_speed_m_s": 0.048,
+    "max_v_m_s": 0.08,
+    "max_w_rad_s": 0.25
+  },
+  "trajectory_figure_frame": "world",
+  "trajectory_figure_rotation_deg": 0.0
+}

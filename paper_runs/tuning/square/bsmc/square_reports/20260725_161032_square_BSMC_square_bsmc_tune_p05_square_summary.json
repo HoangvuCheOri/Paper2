@@ -1,0 +1,13 @@
+{
+  "input": "/home/hoang/Paper1/Paper1-main/paper_runs/tuning/square/bsmc/20260725_161032_square_BSMC_square_bsmc_tune_p05.csv",
+  "n_complete_edges": 4,
+  "straight_lateral_bias_m": 0.0425660847423818,
+  "straight_lateral_rmse_m": 0.04814000664126086,
+  "straight_lateral_max_abs_m": 0.09543640676782587,
+  "straight_waviness_rms_m": 0.02119183209687619,
+  "straight_lateral_peak_to_peak_max_m": 0.09174660662394535,
+  "straight_heading_rmse_deg": 5.514852148270007,
+  "straight_cmd_w_rms_rad_s": 0.06798100993835501,
+  "overall_position_rmse_m": 0.05000102735762499,
+  "overall_heading_rmse_deg": 23.299842937843074
+}
