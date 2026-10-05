@@ -230,7 +230,7 @@ class CameraPoseEstimator(Node):
         self.rtsp_subtype = rtsp_subtype
         self.rtsp_transport = _rtsp_transport
         self.camera_username = os.getenv("CAMERA_USERNAME", "admin")
-        self.camera_password = os.getenv("CAMERA_PASSWORD", "")
+        self.camera_password = os.getenv("CAMERA_PASSWORD", "lab208b3")
         self.camera_ip = os.getenv("CAMERA_IP", "192.168.100.56")
         self.camera_port = os.getenv("CAMERA_PORT", "554")
         self.ip_url = (
