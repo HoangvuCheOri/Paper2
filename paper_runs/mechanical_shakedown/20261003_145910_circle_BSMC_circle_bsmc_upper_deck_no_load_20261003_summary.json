@@ -1,0 +1,32 @@
+{
+  "controller": "BSMC",
+  "trajectory": "circle",
+  "run_id": "circle_bsmc_upper_deck_no_load_20261003",
+  "csv": "/home/hoang/Paper1/Paper1-main/paper_runs/mechanical_shakedown/20261003_145910_circle_BSMC_circle_bsmc_upper_deck_no_load_20261003.csv",
+  "n_total": 743,
+  "n_metric": 416,
+  "valid": true,
+  "camera_max_age_s": 0.3,
+  "requested_laps": 1.0,
+  "parameters": {
+    "k1": 1.163,
+    "k2": 4.499,
+    "k3": 3.3,
+    "ks1": 0.024,
+    "ks2": 0.05,
+    "phi1": 1.0,
+    "phi2": 1.5,
+    "sliding_c": 1.0,
+    "radius_m": 1.0,
+    "angular_speed_rad_s": 0.054,
+    "desired_speed_m_s": 0.054,
+    "max_v_m_s": 0.1,
+    "max_w_rad_s": 0.4
+  },
+  "trajectory_figure_frame": "world",
+  "trajectory_figure_rotation_deg": 0.0,
+  "camera_rmse_ex_m": 0.5960928800399001,
+  "camera_rmse_ey_m": 0.31202105437350774,
+  "camera_rmse_heading_deg": 41.335385656280515,
+  "camera_rmse_position_m": 0.6728178505410051
+}

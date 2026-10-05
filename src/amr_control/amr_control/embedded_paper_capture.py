@@ -47,6 +47,11 @@ class EmbeddedPaperCapture:
 
     COLUMNS = [
         "t", "ros_time", "controller", "trajectory", "run_id",
+        "experiment_case_id", "load_placement", "payload_offset_direction",
+        "base_mass_kg", "payload_mass_kg", "total_mass_kg",
+        "payload_offset_m", "payload_offset_x_m", "payload_offset_y_m",
+        "base_jz_kg_m2", "payload_jz_com_kg_m2", "payload_jz_model",
+        "payload_delta_jz_kg_m2", "total_jz_kg_m2",
         "odom_stamp", "odom_x", "odom_y", "odom_yaw", "odom_v", "odom_w",
         "camera_stamp", "camera_x", "camera_y", "camera_yaw", "camera_age_s",
         "disturbance_event", "control_paused",
@@ -85,6 +90,19 @@ class EmbeddedPaperCapture:
             ParameterDescriptor(dynamic_typing=True),
         )
         node.declare_parameter("paper_camera_max_age", 0.30)
+        # Physical-condition metadata is repeated in every CSV row and copied
+        # to the summary JSON.  A negative Jz means "not measured/provided".
+        node.declare_parameter("experiment_case_id", "nominal")
+        node.declare_parameter("load_placement", "none")
+        node.declare_parameter("base_mass_kg", 1.55)
+        node.declare_parameter("payload_mass_kg", 0.0)
+        node.declare_parameter("payload_offset_m", 0.0)
+        node.declare_parameter("payload_offset_x_m", 0.0)
+        node.declare_parameter("payload_offset_y_m", 0.0)
+        node.declare_parameter("payload_offset_direction", "none")
+        node.declare_parameter("base_jz_kg_m2", -1.0)
+        node.declare_parameter("payload_jz_com_kg_m2", 0.0)
+        node.declare_parameter("payload_jz_model", "point_mass_approximation")
 
         self.enabled = bool(node.get_parameter("paper_capture").value)
         if not self.enabled:
@@ -100,6 +118,7 @@ class EmbeddedPaperCapture:
         self.camera_max_age = max(
             0.01, float(node.get_parameter("paper_camera_max_age").value)
         )
+        self.load_condition = self._load_condition()
         output_dir = Path(os.path.expanduser(
             str(node.get_parameter("paper_output_dir").value)
         ))
@@ -240,6 +259,7 @@ class EmbeddedPaperCapture:
             "t": now - self.start_time, "ros_time": now,
             "controller": self.controller, "trajectory": self.trajectory,
             "run_id": self.run_id,
+            **self.load_condition,
             "odom_stamp": self._get(odom, "stamp"), "odom_x": self._get(odom, "x"),
             "odom_y": self._get(odom, "y"), "odom_yaw": self._get(odom, "yaw"),
             "odom_v": self._get(odom, "v"), "odom_w": self._get(odom, "w"),
@@ -541,6 +561,7 @@ class EmbeddedPaperCapture:
             "camera_max_age_s": self.camera_max_age,
             "requested_laps": self.requested_laps,
             "parameters": self._controller_parameters(),
+            "load_condition": dict(self.load_condition),
             "trajectory_figure_frame": (
                 "trajectory_aligned" if abs(figure_rotation_deg) > 1e-12
                 else "world"
@@ -661,6 +682,49 @@ class EmbeddedPaperCapture:
         summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
         outputs.append(summary_path)
         return outputs
+
+    def _load_condition(self):
+        """Return declared mass/inertia metadata using the parallel-axis rule."""
+        value = lambda name: float(self.node.get_parameter(name).value)
+        base_mass = value("base_mass_kg")
+        payload_mass = value("payload_mass_kg")
+        offset = value("payload_offset_m")
+        offset_x = value("payload_offset_x_m")
+        offset_y = value("payload_offset_y_m")
+        base_jz = value("base_jz_kg_m2")
+        payload_jz_com = value("payload_jz_com_kg_m2")
+        if base_mass <= 0.0 or payload_mass < 0.0 or offset < 0.0:
+            raise ValueError("Masses must be non-negative and base_mass_kg must be > 0")
+        if abs(math.hypot(offset_x, offset_y) - offset) > 1e-6:
+            raise ValueError("payload_offset_m must equal hypot(offset_x, offset_y)")
+        if payload_jz_com < 0.0:
+            raise ValueError("payload_jz_com_kg_m2 must be >= 0")
+        delta_jz = payload_jz_com + payload_mass * offset * offset
+        total_jz = base_jz + delta_jz if base_jz >= 0.0 else None
+        return {
+            "experiment_case_id": str(
+                self.node.get_parameter("experiment_case_id").value
+            ),
+            "load_placement": str(
+                self.node.get_parameter("load_placement").value
+            ),
+            "payload_offset_direction": str(
+                self.node.get_parameter("payload_offset_direction").value
+            ),
+            "base_mass_kg": base_mass,
+            "payload_mass_kg": payload_mass,
+            "total_mass_kg": base_mass + payload_mass,
+            "payload_offset_m": offset,
+            "payload_offset_x_m": offset_x,
+            "payload_offset_y_m": offset_y,
+            "base_jz_kg_m2": base_jz if base_jz >= 0.0 else None,
+            "payload_jz_com_kg_m2": payload_jz_com,
+            "payload_jz_model": str(
+                self.node.get_parameter("payload_jz_model").value
+            ),
+            "payload_delta_jz_kg_m2": delta_jz,
+            "total_jz_kg_m2": total_jz,
+        }
 
     def _controller_parameters(self):
         aliases = {

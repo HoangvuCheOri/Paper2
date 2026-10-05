@@ -15,13 +15,19 @@ Then:
     4. Press 's' to save the homography matrix
 """
 
-import rclpy
-from rclpy.node import Node
+import csv
+from datetime import datetime
+import json
+from pathlib import Path
+import re
+
 import cv2
 import numpy as np
-import yaml
 import os
 import pupil_apriltags as apriltag
+import rclpy
+from rclpy.node import Node
+import yaml
 
 IMAGE_POINTS = [  # pixel coordinates measured from overhead camera image
     [932, 363],
@@ -78,6 +84,13 @@ class HomographyCalibrator(Node):
         self.declare_parameter('display_height', 720)
         self.declare_parameter('undistort_points', True)
         self.declare_parameter('ransac_threshold_m', 0.03)
+        self.declare_parameter('calibration_log_dir', 'calibration_logs')
+        self.declare_parameter('session_name', '')
+        self.declare_parameter('operator_note', '')
+        self.declare_parameter('tag_height_m', -1.0)
+        self.declare_parameter('tag_height_delta_m', 0.11)
+        self.declare_parameter('tag_offset_x', 0.0557)
+        self.declare_parameter('tag_offset_y', 0.0)
 
         self.output_yaml = self.get_parameter('output_yaml').value
         self.display_resize = bool(self.get_parameter('display_resize').value)
@@ -87,6 +100,17 @@ class HomographyCalibrator(Node):
         self.ransac_threshold_m = max(
             0.001, float(self.get_parameter('ransac_threshold_m').value)
         )
+        self.calibration_log_dir = str(
+            self.get_parameter('calibration_log_dir').value
+        )
+        self.session_name = str(self.get_parameter('session_name').value).strip()
+        self.operator_note = str(self.get_parameter('operator_note').value).strip()
+        self.tag_height_m = float(self.get_parameter('tag_height_m').value)
+        self.tag_height_delta_m = float(
+            self.get_parameter('tag_height_delta_m').value
+        )
+        self.tag_offset_x = float(self.get_parameter('tag_offset_x').value)
+        self.tag_offset_y = float(self.get_parameter('tag_offset_y').value)
         self.calibration_points = [list(pt) for pt in IMAGE_POINTS]
         self.real_world_points = [list(pt) for pt in WORLD_POINTS]
         self.calibration_mode = False
@@ -97,6 +121,7 @@ class HomographyCalibrator(Node):
         self.frame_width = None
         self.frame_height = None
         self.default_points_scaled = False
+        self.latest_frame = None
 
         # Camera parameters
         os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;tcp|fflags;nobuffer|flags;low_delay"
@@ -140,6 +165,11 @@ class HomographyCalibrator(Node):
         self.get_logger().info("  'q' - Quit")
         self.get_logger().info("=" * 50)
         self.get_logger().info(f"Output file: {self.output_yaml}")
+        self.get_logger().info(
+            f"Calibration logs: {self.calibration_log_dir}; "
+            f"tag_height={self.tag_height_m:.4f}m; "
+            f"height_delta={self.tag_height_delta_m:+.4f}m"
+        )
         self.get_logger().info(
             f"Homography pixel domain: "
             f"{'undistorted' if self.undistort_points else 'distorted (legacy)'}, "
@@ -275,7 +305,14 @@ class HomographyCalibrator(Node):
         if mean_error_px > 5.0:
             self.get_logger().warn("Warning: Mean reprojection error is > 5px. Calibration might be inaccurate.")
 
+        created_at = datetime.now().astimezone().isoformat(timespec='seconds')
+        inlier_mask = (
+            mask.reshape(-1).astype(bool)
+            if mask is not None
+            else np.ones(len(src), dtype=bool)
+        )
         data = {
+            'created_at': created_at,
             'pixel_domain': 'undistorted' if self.undistort_points else 'distorted',
             'image_width': int(self.frame_width),
             'image_height': int(self.frame_height),
@@ -283,11 +320,20 @@ class HomographyCalibrator(Node):
             'mean_floor_error_m': float(np.mean(errors_m)),
             'rms_floor_error_m': rms_error_m,
             'max_floor_error_m': float(np.max(errors_m)),
+            'mean_inverse_reprojection_error_px': float(mean_error_px),
+            'ransac_inlier_count': int(np.count_nonzero(inlier_mask)),
+            'ransac_point_count': int(len(inlier_mask)),
             'camera_model': 'opencv_radtan',
             'camera_matrix': self.scaled_camera_matrix(
                 self.frame_width, self.frame_height
             ).tolist(),
             'dist_coeffs': self.dist_coeffs.tolist(),
+            'marker_size_m': float(self.marker_size),
+            'tag_height_m': float(self.tag_height_m),
+            'tag_height_delta_m': float(self.tag_height_delta_m),
+            'tag_offset_x_m': float(self.tag_offset_x),
+            'tag_offset_y_m': float(self.tag_offset_y),
+            'operator_note': self.operator_note,
             'src_points': src_raw.tolist(),
             'src_points_homography_domain': src.tolist(),
             'dst_points': self.real_world_points,
@@ -299,7 +345,108 @@ class HomographyCalibrator(Node):
             yaml.dump(data, f, default_flow_style=False)
 
         self.get_logger().info(f"Saved homography to {self.output_yaml}")
+        self.save_calibration_log(
+            data=data,
+            src_raw=src_raw,
+            src=src,
+            dst=dst,
+            dst_projected=dst_projected,
+            errors_m=errors_m,
+            errors_px=errors_px,
+            inlier_mask=inlier_mask,
+        )
         self.print_homography_info(H, src, dst)
+
+    @staticmethod
+    def safe_session_name(value):
+        cleaned = re.sub(r'[^A-Za-z0-9_.-]+', '_', value.strip())
+        return cleaned.strip('._-') or 'homography'
+
+    def save_calibration_log(
+        self,
+        data,
+        src_raw,
+        src,
+        dst,
+        dst_projected,
+        errors_m,
+        errors_px,
+        inlier_mask,
+    ):
+        """Write an auditable sidecar log for one saved calibration."""
+        timestamp = datetime.now().astimezone().strftime('%Y%m%d_%H%M%S')
+        output_stem = Path(self.output_yaml).stem
+        label = self.session_name or f'{timestamp}_{output_stem}'
+        session_dir = Path(self.calibration_log_dir).expanduser() / self.safe_session_name(label)
+        if session_dir.exists():
+            suffix = datetime.now().astimezone().strftime('%f')
+            session_dir = session_dir.with_name(f'{session_dir.name}_{suffix}')
+        session_dir.mkdir(parents=True, exist_ok=False)
+
+        point_records = []
+        for index in range(len(src_raw)):
+            record = {
+                'index': index + 1,
+                'raw_pixel_x': float(src_raw[index, 0]),
+                'raw_pixel_y': float(src_raw[index, 1]),
+                'homography_pixel_x': float(src[index, 0]),
+                'homography_pixel_y': float(src[index, 1]),
+                'world_x_m': float(dst[index, 0]),
+                'world_y_m': float(dst[index, 1]),
+                'projected_x_m': float(dst_projected[index, 0]),
+                'projected_y_m': float(dst_projected[index, 1]),
+                'floor_error_m': float(errors_m[index]),
+                'inverse_error_px': float(errors_px[index]),
+                'ransac_inlier': bool(inlier_mask[index]),
+            }
+            point_records.append(record)
+
+        csv_path = session_dir / 'points.csv'
+        with csv_path.open('w', newline='', encoding='utf-8') as csv_file:
+            writer = csv.DictWriter(csv_file, fieldnames=point_records[0].keys())
+            writer.writeheader()
+            writer.writerows(point_records)
+
+        session_data = {
+            'schema_version': 1,
+            'calibration_yaml': str(Path(self.output_yaml).expanduser().resolve()),
+            'log_directory': str(session_dir.resolve()),
+            'session_name': self.session_name,
+            'operator_note': self.operator_note,
+            'tag_height_m': float(self.tag_height_m),
+            'tag_height_delta_m': float(self.tag_height_delta_m),
+            'tag_offset_x_m': float(self.tag_offset_x),
+            'tag_offset_y_m': float(self.tag_offset_y),
+            'calibration': data,
+            'points': point_records,
+        }
+        json_path = session_dir / 'session.json'
+        with json_path.open('w', encoding='utf-8') as json_file:
+            json.dump(session_data, json_file, indent=2, ensure_ascii=False)
+            json_file.write('\n')
+
+        if self.latest_frame is not None:
+            raw_frame_path = session_dir / 'camera_frame.png'
+            annotated = self.latest_frame.copy()
+            for index, point in enumerate(src_raw):
+                pixel = (int(round(point[0])), int(round(point[1])))
+                color = (0, 255, 0) if inlier_mask[index] else (0, 0, 255)
+                cv2.circle(annotated, pixel, 7, color, 2)
+                cv2.putText(
+                    annotated,
+                    str(index + 1),
+                    (pixel[0] + 8, pixel[1] - 8),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.55,
+                    color,
+                    2,
+                )
+            cv2.imwrite(str(raw_frame_path), annotated)
+
+        self.get_logger().info(
+            f"Saved calibration session log to {session_dir.resolve()} "
+            f"(session.json, points.csv, camera_frame.png)"
+        )
 
     def print_homography_info(self, H, src, dst):
         self.get_logger().info("=" * 50)
@@ -348,6 +495,7 @@ class HomographyCalibrator(Node):
                 continue
 
             h_in, w_in = frame.shape[:2]
+            self.latest_frame = frame.copy()
             self.configure_frame_geometry(w_in, h_in)
             scale_x = w_in / 1280.0
             scale_y = h_in / 720.0

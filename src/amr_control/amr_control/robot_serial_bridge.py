@@ -237,7 +237,11 @@ class RobotSerialBridge(Node):
             sent = Twist()
             sent.linear.x = float(v_cmd)
             sent.angular.z = float(w_cmd)
-            self.robot_cmd_pub.publish(sent)
+            # The serial stop command is still useful during shutdown, but
+            # publishing after the ROS context has already been invalidated
+            # raises RCLError and makes a normal Ctrl-C look like a failed run.
+            if rclpy.ok():
+                self.robot_cmd_pub.publish(sent)
             return True
         except (OSError, serial.SerialException) as exc:
             self._disconnect_serial(exc)

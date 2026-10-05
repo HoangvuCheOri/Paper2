@@ -56,6 +56,7 @@ setup(
             'square_tuning_report = amr_control.square_tuning_report:main',
             'eight_tuning_report = amr_control.eight_tuning_report:main',
             'circle_tuning_report = amr_control.circle_tuning_report:main',
+            'payload_circle_experiment = amr_control.payload_circle_experiment:main',
         ],
     },
 )

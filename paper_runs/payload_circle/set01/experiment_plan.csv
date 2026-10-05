@@ -1,0 +1,8 @@
+case_id,placement,payload_mass_kg,total_mass_kg,offset_x_m,offset_y_m,offset_m,payload_jz_com_kg_m2,offset_jz_increment_kg_m2,payload_delta_jz_kg_m2,base_jz_kg_m2,total_jz_kg_m2,jz_model
+nominal,none,0.0,1.55,0.0,0.0,0.0,0.0,0.0,0.0,,,point_mass_approximation
+m0p5_center,center,0.5,2.05,0.0,0.0,0.0,0.0,0.0,0.0,,,point_mass_approximation
+m1p0_center,center,1.0,2.55,0.0,0.0,0.0,0.0,0.0,0.0,,,point_mass_approximation
+m1p5_center,center,1.5,3.05,0.0,0.0,0.0,0.0,0.0,0.0,,,point_mass_approximation
+m0p5_offset_5cm,offset_forward,0.5,2.05,0.05,0.0,0.05,0.0,0.00125,0.00125,,,point_mass_approximation
+m1p0_offset_5cm,offset_forward,1.0,2.55,0.05,0.0,0.05,0.0,0.00250,0.00250,,,point_mass_approximation
+m1p5_offset_5cm,offset_forward,1.5,3.05,0.05,0.0,0.05,0.0,0.00375,0.00375,,,point_mass_approximation
